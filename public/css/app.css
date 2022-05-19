@@ -10964,8 +10964,8 @@ a.text-dark:focus {
 
 .medium-editor-toolbar-active {
   visibility: visible;
-  background: rgba(56, 178, 172, var(--bg-opacity));
-  color: white;
+  background: #038b85;
+  color: black;
 }
 
 .medium-editor-element,
