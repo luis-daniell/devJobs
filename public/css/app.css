@@ -10965,7 +10965,7 @@ a.text-dark:focus {
 .medium-editor-toolbar-active {
   visibility: visible;
   background: #038b85;
-  color: black;
+  color: white;
 }
 
 .medium-editor-element,
@@ -11040,5 +11040,25 @@ a.text-dark:focus {
 
 .dropzone .dz-message .dz-button {
   color: #666;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.pagination .page-link {
+  font-size: 0.8rem;
+  margin-right: 2rem;
+}
+
+.pagination a {
+  color: #38b2ac;
+}
+
+.pagination span.page-link {
+  color: #718096;
 }
 
