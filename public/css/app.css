@@ -10964,8 +10964,13 @@ a.text-dark:focus {
 
 .medium-editor-toolbar-active {
   visibility: visible;
+<<<<<<< HEAD
   background: #2eada7;
   color: white;
+=======
+  background: #038b85;
+  color: black;
+>>>>>>> 76347116bbdc21bff5c5ad475723523ef4f56447
 }
 
 .medium-editor-element,
