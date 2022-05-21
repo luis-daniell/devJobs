@@ -10969,8 +10969,12 @@ a.text-dark:focus {
   color: white;
 =======
   background: #038b85;
+<<<<<<< HEAD
   color: black;
 >>>>>>> 76347116bbdc21bff5c5ad475723523ef4f56447
+=======
+  color: white;
+>>>>>>> 09ba6d4ef23bd257a96e9c2f1f30d1df30b574a6
 }
 
 .medium-editor-element,
@@ -11045,5 +11049,25 @@ a.text-dark:focus {
 
 .dropzone .dz-message .dz-button {
   color: #666;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.pagination .page-link {
+  font-size: 0.8rem;
+  margin-right: 2rem;
+}
+
+.pagination a {
+  color: #38b2ac;
+}
+
+.pagination span.page-link {
+  color: #718096;
 }
 

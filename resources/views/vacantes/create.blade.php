@@ -15,7 +15,13 @@
 
     <h1 class="text-2xl text-center mt-10">Nueva Vacante</h1>
 
-    <form class="max-w-lg mx-auto my-10">
+    <form
+        action="{{ route('vacantes.store') }}"
+        method="POST"
+        class="max-w-lg mx-auto my-10">
+
+        {{-- AGREGA EL TOKEN --}}
+        @csrf
 
         <div class="mb-5">
             <label
@@ -25,7 +31,16 @@
                 id="titulo"
                 type="text"
                 class="p-3 bg-white-100 rounded form-input w-full @error('email') is-invalid @enderror"
-                name="titulo" >
+                name="titulo"
+                placeholder="Titulo de la vacante"
+                value="{{ old('titulo') }}">
+
+            @error('titulo')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
 
         <div class="mb-5">
@@ -46,12 +61,25 @@
                 <option disabled selected> --- Seleccione --- </option>
 
                 @foreach ($categorias as $categoria)
-                    <option value="{{ $categoria->id }}">
+                    <option
+                        {{ old('categoria') == $categoria->id ? 'selected' : ''}}
+                        value="{{ $categoria->id }}"
+                        >
                         {{ $categoria->nombre }}
                     </option>
                 @endforeach
 
             </select>
+
+
+            @error('categoria')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
+
+
         </div>
 
 
@@ -74,12 +102,21 @@
                 <option disabled selected> --- Seleccione --- </option>
 
                 @foreach ($experiencias as $experiencia)
-                    <option value="{{ $experiencia->id }}">
+                    <option
+                        {{ old('experiencia') == $experiencia->id ? 'selected' : ''}}
+                        value="{{ $experiencia->id }}">
                         {{ $experiencia->nombre }}
                     </option>
                 @endforeach
 
             </select>
+
+            @error('experiencia')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
 
 
@@ -103,12 +140,21 @@
                 <option disabled selected> --- Seleccione --- </option>
 
                 @foreach ($ubicaciones as $ubicacion)
-                    <option value="{{ $ubicacion->id }}">
+                    <option
+                        {{ old('ubicacion') == $ubicacion->id ? 'selected' : ''}}
+                        value="{{ $ubicacion->id }}">
                         {{ $ubicacion->nombre }}
                     </option>
                 @endforeach
 
             </select>
+
+            @error('ubicacion')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
 
 
@@ -131,12 +177,21 @@
                 <option disabled selected> --- Seleccione --- </option>
 
                 @foreach ($salarios as $salario)
-                    <option value="{{ $salario->id }}">
+                    <option
+                        {{ old('salario') == $salario->id ? 'selected' : ''}}
+                        value="{{ $salario->id }}">
                         {{ $salario->nombre }}
                     </option>
                 @endforeach
 
             </select>
+
+            @error('salario')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
 
 
@@ -148,7 +203,14 @@
                 class="block text-gray-700 text-sm mb-2">Descripcion del puesto:
             </label>
             <div class="editable p-3 bg-gray-100 form-input text-gray-700 "></div>
-            <input type="hidden" name="descripcion" id="descripcion">
+            <input type="hidden" name="descripcion" id="descripcion" value="{{ old('descripcion') }}">
+
+            @error('descripcion')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
 
 
@@ -162,9 +224,18 @@
             </label>
             <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
 
-            <input type="hidden" name="imagen" id="imagen">
+            <input type="hidden" name="imagen" id="imagen" value="{{ old('imagen') }}">
+
+
+            @error('imagen')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
 
             <p id="error"></p>
+
 
         </div>
 
@@ -174,8 +245,8 @@
         <div class="mb-5">
             <label
                 for="skills"
-                class="block text-gray-700 text-sm mb-2">Habilidades y Conocimientos:
-            </label>
+                class="block text-gray-700 text-sm mb-5"
+            >Habilidades y Conocimientos: <span class="text-xs">(Elige al menos 3)</span></label>
 
             @php
                 $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
@@ -183,7 +254,18 @@
 
             <lista-skills
                 :skills="{{ json_encode($skills) }}"
+                :oldskills="{{ json_encode(old('skills') ) }}"
             ></lista-skills>
+
+            @error('skills')
+                <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
+
+
+
         </div>
 
 
@@ -213,7 +295,7 @@
             //Medium Editor
             const editor = new MediumEditor('.editable', {
                 toolbar : {
-                    buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
+                    buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedList', 'h2', 'h3'],
                     static: true,
                     sticky: true
                 },
@@ -223,10 +305,15 @@
             });
 
 
+            //Agrega al input hidden lo que el usuario escribe en medium editor
+
             editor.subscribe('editableInput', function(eventObj, editable){
                 const contenido = editor.getContent();
                 document.querySelector('#descripcion').value = contenido ;
             })
+
+            //Llena ek editor con el contenido del input hidden
+            editor.setContent(document.querySelector('#descripcion').value );
 
 
 
@@ -240,6 +327,22 @@
                 maxFiles: 1,
                 headers: {
                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                },
+
+                init: function(){
+                    if(document.querySelector('#imagen').value.trim() ){
+
+                        let imagenPublicada = {};
+                        imagenPublicada.size = 1234;
+                        imagenPublicada.name = document.querySelector('#imagen').value;
+
+                        this.options.addedfile.call(this, imagenPublicada);
+                        this.options.thumbnail.call(this, imagenPublicada, `/storage/vacantes/${imagenPublicada.name}`);
+
+                        imagenPublicada.previewElement.classList.add('dz-sucess');
+                        imagenPublicada.previewElement.classList.add('dz-complete');
+
+                    }
                 },
                 success: function(file, response){
 
@@ -268,7 +371,7 @@
                     file.previewElement.parentNode.removeChild(file.previewElement);
 
                     params = {
-                        imagen: file.nombreServidor
+                        imagen: file.nombreServidor ?? document.querySelector('#imagen').value
                     }
 
                     axios.post('/vacantes/borrarimagen', params)

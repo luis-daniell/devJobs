@@ -6,8 +6,12 @@
     color: rgb(255, 255, 255);
 =======
     background: rgb(3, 139, 133);
+<<<<<<< HEAD
     color: rgb(0, 0, 0);
 >>>>>>> 76347116bbdc21bff5c5ad475723523ef4f56447
+=======
+    color: rgb(255, 255, 255);
+>>>>>>> 09ba6d4ef23bd257a96e9c2f1f30d1df30b574a6
 }
 
 .medium-editor-element,
@@ -52,5 +56,24 @@
 
     .dz-message .dz-button{
         color: #666;
+    }
+}
+
+//Paginacion
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    gap: 1rem;
+    .page-link {
+        font-size: .8rem;
+        margin-right: 2rem;
+    }
+
+    a {
+        color: #38b2ac;
+    }
+    span.page-link{
+        color: #718096;
     }
 }
