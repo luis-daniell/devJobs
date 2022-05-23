@@ -56,9 +56,7 @@
 
         </div>
 
-        <aside class="md:w-2/5">
-            2
-        </aside>
+        @include('ui.contacto')
 
     </div>
 @endsection

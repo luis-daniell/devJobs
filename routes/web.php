@@ -35,6 +35,8 @@ Route::group( ['middleware' => ['auth', 'verified'] ], function(){
 });
 
 
+//Enviar datos para una vacante
+Route::post('/candidatos/store', 'CandidatoController@store')->name('candidatos.store');
 
 
 //Muestra los trabajos en el front end sin una autenticacion
