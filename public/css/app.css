@@ -10962,21 +10962,6 @@ a.text-dark:focus {
   }
 }
 
-.medium-editor-toolbar-active {
-  visibility: visible;
-<<<<<<< HEAD
-  background: #2eada7;
-  color: white;
-=======
-  background: #038b85;
-<<<<<<< HEAD
-  color: black;
->>>>>>> 76347116bbdc21bff5c5ad475723523ef4f56447
-=======
-  color: white;
->>>>>>> 09ba6d4ef23bd257a96e9c2f1f30d1df30b574a6
-}
-
 .medium-editor-element,
 .descripcion {
   min-height: 300px;
