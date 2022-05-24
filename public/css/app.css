@@ -10962,6 +10962,12 @@ a.text-dark:focus {
   }
 }
 
+.medium-editor-toolbar-active {
+  visibility: visible;
+  background: #38b2ac;
+  color: white;
+}
+
 .medium-editor-element,
 .descripcion {
   min-height: 300px;

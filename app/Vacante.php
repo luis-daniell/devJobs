@@ -48,6 +48,13 @@ class Vacante extends Model
     }
 
 
+    //Relacion 1:n Vacante y candidatos
+    public function candidatos()
+    {
+        return $this->hasMany(Candidato::class);
+    }
+
+
 
 
 

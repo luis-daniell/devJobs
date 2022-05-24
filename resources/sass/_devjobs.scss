@@ -1,5 +1,9 @@
 // editor
-
+.medium-editor-toolbar-active {
+    visibility: visible;
+    background: rgb(56, 178, 172);
+    color: white;
+}
 
 .medium-editor-element,
 .descripcion {
