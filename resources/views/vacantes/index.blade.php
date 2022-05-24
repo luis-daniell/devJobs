@@ -1,20 +1,14 @@
 @extends('layouts.app')
 
 @section('navegacion')
-
     @include('ui.adminnav')
-
 @endsection
-
-
 
 @section('content')
 
 <h1 class="text-2xl text-center mt-10">Administrar Vacantes</h1>
 
 @if(count($vacantes) > 0 )
-
-
 
     <div class="flex flex-col mt-10">
         <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -37,8 +31,6 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-
-
 
                     @foreach ($vacantes as $vacante)
                         <tr>
@@ -72,7 +64,6 @@
                         </tr>
                     @endforeach
 
-
                 </tbody>
             </table>
         </div>
@@ -81,13 +72,9 @@
 
     {{ $vacantes->links() }}
 
-
   @else
-
     <p class="text-center mt-10 text-gray-700">No tienes vacantes aún</p>
-
   @endif
-
 
 @endsection
 

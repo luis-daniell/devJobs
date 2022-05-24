@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Vacante;
 use App\Candidato;
 use Illuminate\Http\Request;
+use App\Notifications\NuevoCandidato;
 
 class CandidatoController extends Controller
 {
@@ -65,6 +66,10 @@ class CandidatoController extends Controller
             'cv' => $nombreArchivo
         ]);
 
+        $reclutador = $vacante->reclutador;
+        $reclutador->notify(new NuevoCandidato($vacante->titulo));
+
+
         //PERMITE ACCEDER A LA COLECCION
         // $vacante->candidatos->create
 
@@ -82,7 +87,7 @@ class CandidatoController extends Controller
 
 
         //Segunda Forma
-        // $candidato = new Candidato($data); //EN ESTE MEDOTODO SE RELLENA EL FILLABLE EN Candidato.php
+        // $candidato = new Candidato($data); //EN ESTE METODO SE RELLENA EL FILLABLE EN Candidato.php
         // $candidato->cv = "123.pdf";
         // $candidato->save();
 
