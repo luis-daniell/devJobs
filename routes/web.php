@@ -23,6 +23,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Rutas Protegidas
 Route::group( ['middleware' => ['auth', 'verified'] ], function(){
+
+
     //Rutas de vacantes
     Route::get('/vacantes', 'VacanteController@index')->name('vacantes.index');
     Route::get('/vacantes/create', 'VacanteController@create')->name('vacantes.create');
@@ -32,6 +34,9 @@ Route::group( ['middleware' => ['auth', 'verified'] ], function(){
     Route::post('/vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
     Route::post('/vacantes/borrarimagen', 'VacanteController@borrarimagen')->name('vacantes.borrar');
 
+    //Cambiar estado de la vacante
+    Route::post('/vacantes/{vacante}', 'VacanteController@estado')->name('vacantes.estado');
+
     //Notificaciones
     Route::get('/notificaciones', 'NotificacionesController')->name('notificaciones');
 
@@ -39,6 +44,7 @@ Route::group( ['middleware' => ['auth', 'verified'] ], function(){
 
 
 //Enviar datos para una vacante
+Route::get('/candidatos/{id}', 'CandidatoController@index')->name('candidatos.index');
 Route::post('/candidatos/store', 'CandidatoController@store')->name('candidatos.store');
 
 

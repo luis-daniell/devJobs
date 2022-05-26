@@ -14,9 +14,20 @@ class CandidatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // Obtener el id actual
+        // dd($request->route('id'));
+        $id_vacante = $request->route('id');
+
+        //Obtener los candidatos y la vacante
+
+        $vacante = Vacante::findOrFail($id_vacante);
+
+        // dd($vacante->candidatos);
+
+        return view('candidatos.index', compact('vacante'));
+
     }
 
     /**
@@ -67,7 +78,7 @@ class CandidatoController extends Controller
         ]);
 
         $reclutador = $vacante->reclutador;
-        $reclutador->notify(new NuevoCandidato($vacante->titulo));
+        $reclutador->notify(new NuevoCandidato($vacante->titulo, $vacante->id));
 
 
         //PERMITE ACCEDER A LA COLECCION
