@@ -20,7 +20,9 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     @yield('styles')
     <!-- Styles -->
@@ -58,12 +60,12 @@
                             <a class="text-white no-underline hover:underline hover:text-gray-300 p-3"
                                 href="{{ route('login') }}">{{ __('Login') }}</a>
 
-                            @if (Route::has('register'))
+                                @if (Route::has('register'))
 
-                                <a class="text-white no-underline hover:underline hover:text-gray-300 p-3"
-                                href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="text-white no-underline hover:underline hover:text-gray-300 p-3"
+                                    href="{{ route('register') }}">{{ __('Register') }}</a>
 
-                            @endif
+                                @endif
                             @else
 
 
@@ -93,7 +95,7 @@
         </nav>
 
         <div class="bg-gray-700">
-            <nav class="container mx-auto flex space-x-1">
+            <nav class="container mx-auto flex flex-col md:flex-row text-center space-x-1">
                 @yield('navegacion')
             </nav>
         </div>

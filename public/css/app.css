@@ -10962,6 +10962,10 @@ a.text-dark:focus {
   }
 }
 
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 .medium-editor-toolbar-active {
   visibility: visible;
   background: #38b2ac;

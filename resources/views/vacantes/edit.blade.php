@@ -13,15 +13,16 @@
 
 @section('content')
 
-    <h1 class="text-2xl text-center mt-10">Editar Vacante</h1>
+    <h1 class="text-2xl text-center mt-10">Editar Vacante {{ $vacante->titulo }}</h1>
 
     <form
-        action="{{ route('vacantes.store') }}"
+        action="{{ route('vacantes.update', ['vacante' => $vacante->id ]) }}"
         method="POST"
         class="max-w-lg mx-auto my-10">
 
         {{-- AGREGA EL TOKEN --}}
         @csrf
+        @method('PUT')
 
         <div class="mb-5">
             <label
@@ -33,7 +34,7 @@
                 class="p-3 bg-white-100 rounded form-input w-full @error('email') is-invalid @enderror"
                 name="titulo"
                 placeholder="Titulo de la vacante"
-                value="{{ old('titulo') }}">
+                value="{{ $vacante->titulo }}">
 
             @error('titulo')
                 <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
@@ -62,7 +63,7 @@
 
                 @foreach ($categorias as $categoria)
                     <option
-                        {{ old('categoria') == $categoria->id ? 'selected' : ''}}
+                        {{ $vacante->categoria_id == $categoria->id ? 'selected' : ''}}
                         value="{{ $categoria->id }}"
                         >
                         {{ $categoria->nombre }}
@@ -103,7 +104,7 @@
 
                 @foreach ($experiencias as $experiencia)
                     <option
-                        {{ old('experiencia') == $experiencia->id ? 'selected' : ''}}
+                        {{ $vacante->experiencia_id == $experiencia->id ? 'selected' : ''}}
                         value="{{ $experiencia->id }}">
                         {{ $experiencia->nombre }}
                     </option>
@@ -141,7 +142,7 @@
 
                 @foreach ($ubicaciones as $ubicacion)
                     <option
-                        {{ old('ubicacion') == $ubicacion->id ? 'selected' : ''}}
+                        {{ $vacante->ubicacion_id == $ubicacion->id ? 'selected' : ''}}
                         value="{{ $ubicacion->id }}">
                         {{ $ubicacion->nombre }}
                     </option>
@@ -178,7 +179,7 @@
 
                 @foreach ($salarios as $salario)
                     <option
-                        {{ old('salario') == $salario->id ? 'selected' : ''}}
+                        {{ $vacante->salario_id == $salario->id ? 'selected' : ''}}
                         value="{{ $salario->id }}">
                         {{ $salario->nombre }}
                     </option>
@@ -203,7 +204,7 @@
                 class="block text-gray-700 text-sm mb-2">Descripcion del puesto:
             </label>
             <div class="editable p-3 bg-gray-100 form-input text-gray-700 "></div>
-            <input type="hidden" name="descripcion" id="descripcion" value="{{ old('descripcion') }}">
+            <input type="hidden" name="descripcion" id="descripcion" value="{{ $vacante->descripcion }}">
 
             @error('descripcion')
                 <div class="bg-red-100 border-2 border-red-400 text-red-400 px-4 py-3 rounded relative mt-3 mb-4 " role="alert">
@@ -222,7 +223,7 @@
             </label>
             <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
 
-            <input type="hidden" name="imagen" id="imagen" value="{{ old('imagen') }}">
+            <input type="hidden" name="imagen" id="imagen" value="{{ $vacante->imagen }}">
 
 
             @error('imagen')
@@ -252,7 +253,7 @@
 
             <lista-skills
                 :skills="{{ json_encode($skills) }}"
-                :oldskills="{{ json_encode(old('skills') ) }}"
+                :oldskills="{{ json_encode( $vacante->skills ) }}"
             ></lista-skills>
 
             @error('skills')
@@ -325,6 +326,7 @@
                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
                 },
 
+
                 init: function(){
                     if(document.querySelector('#imagen').value.trim() ){
 
@@ -337,9 +339,13 @@
 
                         imagenPublicada.previewElement.classList.add('dz-sucess');
                         imagenPublicada.previewElement.classList.add('dz-complete');
+                        imagenPublicada.nombreServidor = document.querySelector('#imagen').value;
 
                     }
                 },
+
+
+
                 success: function(file, response){
 
 
@@ -355,6 +361,9 @@
 
 
                 },
+
+
+
                 maxfilesexceeded: function(file){
                     if( this.files[1] != null){
                         this.removeFile(this.files[0]);//Eliminar el archivo anterior
@@ -363,16 +372,17 @@
                     }
                 },
 
+
+
                 removedfile: function(file, response){
                     file.previewElement.parentNode.removeChild(file.previewElement);
 
                     params = {
-                        imagen: file.nombreServidor ?? document.querySelector('#imagen').value
+                        imagen: file.nombreServidor
                     }
 
                     axios.post('/vacantes/borrarimagen', params)
                         .then( respuesta => console.log(respuesta))
-
 
                 }
 

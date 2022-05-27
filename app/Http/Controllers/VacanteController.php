@@ -23,9 +23,8 @@ class VacanteController extends Controller
         //
 
         //$vacantes = auth()->user()->vacantes;
-        $vacantes = Vacante::where('user_id', auth()->user()->id)->simplePaginate(2);
+        $vacantes = Vacante::where('user_id', auth()->user()->id)->simplePaginate(6);
         // dd($vacantes);
-
 
         return view('vacantes.index', compact('vacantes'));
     }
@@ -109,7 +108,9 @@ class VacanteController extends Controller
      */
     public function edit(Vacante $vacante)
     {
-        //
+        //Agregar el policy
+        $this->authorize('view', $vacante);
+
 
         //Consultas
         $categorias = Categoria::all();
@@ -122,7 +123,10 @@ class VacanteController extends Controller
             ->with('categorias', $categorias)
             ->with('experiencias', $experiencias)
             ->with('ubicaciones', $ubicaciones)
-            ->with('salarios', $salarios);
+            ->with('salarios', $salarios)
+            ->WITH('vacante', $vacante);
+
+
     }
 
     /**
@@ -135,6 +139,56 @@ class VacanteController extends Controller
     public function update(Request $request, Vacante $vacante)
     {
         //
+        //dd($request->all());
+
+
+        //Agregar el policy
+        $this->authorize('update', $vacante);
+
+
+
+        //Validación
+        $data = $request->validate([
+            'titulo' => 'required|min:8',
+            'categoria' => 'required',
+            'experiencia' => 'required',
+            'ubicacion' => 'required',
+            'salario'=> 'required',
+            'descripcion' => 'required|min:50',
+            'imagen' => 'required',
+            'skills' => 'required'
+        ]);
+
+        $vacante->titulo = $data['titulo'];
+        $vacante->skills = $data['skills'];
+        $vacante->imagen = $data['imagen'];
+        $vacante->descripcion = $data['descripcion'];
+        $vacante->categoria_id = $data['categoria'];
+        $vacante->experiencia_id = $data['experiencia'];
+        $vacante->ubicacion_id = $data['ubicacion'];
+        $vacante->salario_id = $data['salario'];
+
+        $vacante->save();
+
+        return redirect()->action('VacanteController@index');
+
+
+
+        // //Almacenar en la base de datos
+        // auth()->user()->vacantes()->create([
+        //     'titulo' => $data['titulo'],
+        //     'imagen' => $data['imagen'],
+        //     'descripcion' => $data['descripcion'],
+        //     'skills' => $data['skills'],
+        //     'categoria_id' => $data['categoria'],
+        //     'experiencia_id' => $data['experiencia'],
+        //     'ubicacion_id' => $data['ubicacion'],
+        //     'salario_id' => $data['salario'],
+
+        // ]);
+
+        // return redirect()->action('VacanteController@index');
+
     }
 
     /**
@@ -146,12 +200,19 @@ class VacanteController extends Controller
     public function destroy(Vacante $vacante)
     {
         //
+        //Agregar el policy
+        $this->authorize('delete', $vacante);
+
+
+
+
+
+
         // return response()->json($vacante);
         $vacante->delete();
 
         return response()->json(['mensaje'=> 'Se elimino la vacante ' . $vacante->titulo]);
     }
-
 
 
     //Campos Extras
@@ -192,8 +253,6 @@ class VacanteController extends Controller
         //Guardarlo en la BD
         $vacante->save();
 
-
         return response()->json([ 'respuesta' => 'Correcto' ]);
     }
-
 }
