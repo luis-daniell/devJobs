@@ -60,14 +60,22 @@
                             >  {{ $vacante->candidatos->count() }} Candidatos</a>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                                <a href="#" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
-
-                                <eliminar-vacante
-                                    vacante-id="{{ $vacante->id }}"
-                                ></eliminar-vacante>
 
 
-                                <a href="{{ route('vacantes.show', ['vacante' => $vacante->id ]) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
+                            <a
+                                href="{{ route('vacantes.edit', ['vacante' => $vacante->id ])}}"
+                                class="text-teal-600 hover:text-teal-900 mr-5"
+
+
+                            >Editar</a>
+
+                            <eliminar-vacante
+                                vacante-id="{{ $vacante->id }}"
+                            ></eliminar-vacante>
+
+
+                            <a href="{{ route('vacantes.show', ['vacante' => $vacante->id ]) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
+
                         </td>
                         </tr>
                     @endforeach

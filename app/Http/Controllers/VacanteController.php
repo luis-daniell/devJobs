@@ -110,6 +110,19 @@ class VacanteController extends Controller
     public function edit(Vacante $vacante)
     {
         //
+
+        //Consultas
+        $categorias = Categoria::all();
+        $experiencias = Experiencia::all();
+        $ubicaciones = Ubicacion::all();
+        $salarios = Salario::all();
+
+
+        return view('vacantes.edit')
+            ->with('categorias', $categorias)
+            ->with('experiencias', $experiencias)
+            ->with('ubicaciones', $ubicaciones)
+            ->with('salarios', $salarios);
     }
 
     /**
@@ -133,6 +146,10 @@ class VacanteController extends Controller
     public function destroy(Vacante $vacante)
     {
         //
+        // return response()->json($vacante);
+        $vacante->delete();
+
+        return response()->json(['mensaje'=> 'Se elimino la vacante ' . $vacante->titulo]);
     }
 
 

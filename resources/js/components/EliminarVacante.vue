@@ -32,13 +32,30 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
 
-                            //Enviar peticion a Axios
+                            const params = {
+                                id: this.vacanteId,
+                                _method: 'delete'
+                            }
 
-                            this.$swal.fire(
-                            'Vacante Eliminada',
-                            'Se elimino correctamente',
-                            'success'
-                            )
+                            //Enviar peticion a Axios
+                            axios.post(`/vacantes/${this.vacanteId}`, params)
+                                .then( respuesta => {
+                                    console.log(respuesta);
+                                    this.$swal.fire(
+                                        'Vacante Eliminada',
+                                        respuesta.data.mensaje,
+                                        'success'
+                                    )
+
+                                    //Eliminar del DOM
+                                    this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+
+                                })
+                                .catch( error => {
+                                    console.log(error);
+                                })
+
+
                         }
                     })
 

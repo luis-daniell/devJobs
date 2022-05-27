@@ -1939,8 +1939,21 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'No'
       }).then(function (result) {
         if (result.isConfirmed) {
-          //Enviar peticion a Axios
-          _this.$swal.fire('Vacante Eliminada', 'Se elimino correctamente', 'success');
+          var params = {
+            id: _this.vacanteId,
+            _method: 'delete'
+          }; //Enviar peticion a Axios
+
+          axios.post("/vacantes/".concat(_this.vacanteId), params).then(function (respuesta) {
+            console.log(respuesta);
+
+            _this.$swal.fire('Vacante Eliminada', respuesta.data.mensaje, 'success'); //Eliminar del DOM
+
+
+            _this.$el.parentNode.parentNode.parentNode.removeChild(_this.$el.parentNode.parentNode);
+          })["catch"](function (error) {
+            console.log(error);
+          });
         }
       });
     }
@@ -51544,8 +51557,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Escritorio\devJobs\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Escritorio\devJobs\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\luisd\Desktop\Mis Cursos\Curso Laravel\devJobs\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\luisd\Desktop\Mis Cursos\Curso Laravel\devJobs\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
