@@ -23,7 +23,7 @@ class VacanteController extends Controller
         //
 
         //$vacantes = auth()->user()->vacantes;
-        $vacantes = Vacante::where('user_id', auth()->user()->id)->simplePaginate(6);
+        $vacantes = Vacante::where('user_id', auth()->user()->id)->latest()->simplePaginate(6);
         // dd($vacantes);
 
         return view('vacantes.index', compact('vacantes'));
@@ -96,6 +96,8 @@ class VacanteController extends Controller
     public function show(Vacante $vacante)
     {
         //
+
+        // if($vacante->activa === 0) return abort(404);
 
         return view('vacantes.show')->with('vacante', $vacante);
     }
@@ -255,4 +257,47 @@ class VacanteController extends Controller
 
         return response()->json([ 'respuesta' => 'Correcto' ]);
     }
+
+
+    public function buscar(Request $request)
+    {
+
+        //Validar
+        $data = $request->validate([
+            'categoria' => 'required',
+            'ubicacion' => 'required'
+
+        ]);
+
+        //Asignar valores
+        $categoria = $data['categoria'];
+        $ubicacion = $data['ubicacion'];
+
+        $vacantes = Vacante::latest()
+            ->where('categoria_id', $categoria)
+            ->where('ubicacion_id', $ubicacion)
+            ->get();
+
+            //orWhere SINTAXIS OR EN SQL
+
+        // $vacantes = Vacante::where([
+        //     'categoria_id' => $categoria,
+        //     'ubicacion_id' => $ubicacion
+        // ])->get();
+
+
+
+
+        return view('buscar.index', compact('vacantes'));
+    }
+
+
+    public function resultados()
+    {
+
+        return "Mostrando resultados";
+
+    }
+
+
 }
